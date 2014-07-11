@@ -4,19 +4,31 @@ machine = "A10-EVB-V1.2"
 
 [target]
 boot_clock = 1008
-dcdc2_vol = 1400
+dcdc2_vol = 1450
 dcdc3_vol = 1250
 ldo2_vol = 3000
 ldo3_vol = 2800
 ldo4_vol = 2800
-pll4_freq = 960
-pll6_freq = 960
-power_start = 0
-storage_type = 0
+pll4_freq = 1200
+pll6_freq = 1200
+power_start = 1
+
+[card_burn_para]
+card_no = 0
+card_line = 4
+card_mode = 0
+sdc_d1 = port:PF00<2><1><default><default>
+sdc_d0 = port:PF01<2><1><default><default>
+sdc_clk = port:PF02<2><1><default><default>
+sdc_cmd = port:PF03<2><1><default><default>
+sdc_d3 = port:PF04<2><1><default><default>
+sdc_d2 = port:PF05<2><1><default><default>
 
 [card_boot]
 logical_start = 40960
-sprite_gpio0 =
+sprite_gpio0 = port:PH20<1><default><default><0>
+sprite_work_delay = 500
+sprite_err_delay = 200
 
 [card_boot0_para]
 card_ctrl = 0
@@ -64,29 +76,29 @@ jtag_di = port:PB17<3><default><default><default>
 
 [dram_para]
 dram_baseaddr = 0x40000000
-dram_clk = 480
+dram_clk = 384
 dram_type = 3
-dram_rank_num = 1
-dram_chip_density = 4096
-dram_io_width = 16
-dram_bus_width = 32
+dram_rank_num =
+dram_chip_density =
+dram_io_width =
+dram_bus_width =
 dram_cas = 6
 dram_zq = 0x7b
 dram_odt_en = 0
-dram_size = 1024
+dram_size =
 dram_tpr0 = 0x30926692
 dram_tpr1 = 0x1090
 dram_tpr2 = 0x1a0c8
 dram_tpr3 = 0x0
 dram_tpr4 = 0x0
 dram_tpr5 = 0x0
-dram_emr1 = 0x0
+dram_emr1 = 0x4
 dram_emr2 = 0x0
 dram_emr3 = 0x0
 
 [mali_para]
 mali_used = 1
-mali_clkdiv = 3
+mali_clkdiv = 4
 
 [g2d_para]
 g2d_used = 1
@@ -112,6 +124,7 @@ emac_txclk = port:PA14<2><default><default><default>
 emac_crs = port:PA15<2><default><default><default>
 emac_col = port:PA16<2><default><default><default>
 emac_reset = port:PA17<1><default><default><default>
+emac_power =
 
 [twi0_para]
 twi0_used = 1
@@ -309,17 +322,17 @@ nand_ndqs = port:PC24<2><default><default><default>
 disp_init_enable = 1
 disp_mode = 0
 screen0_output_type = 3
-screen0_output_mode = 4
+screen0_output_mode = 5
 screen1_output_type = 1
 screen1_output_mode = 4
 fb0_framebuffer_num = 2
 fb0_format = 10
 fb0_pixel_sequence = 0
-fb0_scaler_mode_enable = 0
+fb0_scaler_mode_enable = 1
 fb1_framebuffer_num = 2
 fb1_format = 10
 fb1_pixel_sequence = 0
-fb1_scaler_mode_enable = 0
+fb1_scaler_mode_enable = 1
 lcd0_bright = 197
 lcd1_bright = 197
 lcd0_screen_bright = 50
@@ -332,7 +345,7 @@ lcd1_screen_saturation = 57
 lcd1_screen_hue = 50
 
 [lcd0_para]
-lcd_used = 1
+lcd_used = 0
 lcd_x = 800
 lcd_y = 480
 lcd_dclk_freq = 33
@@ -362,7 +375,7 @@ lcd_gamma_correction_en = 0
 lcd_gamma_tbl_0 = 0x0
 lcd_gamma_tbl_1 = 0x10101
 lcd_gamma_tbl_255 = 0xffffff
-lcd_bl_en_used = 1
+lcd_bl_en_used = 0
 lcd_bl_en = port:PH07<1><0><default><1>
 lcd_power_used = 1
 lcd_power = port:PH08<1><0><default><1>
@@ -479,7 +492,7 @@ dac2_src = 6
 dac3_src = 0
 
 [csi0_para]
-csi_used = 1
+csi_used = 0
 csi_mode = 0
 csi_dev_qty = 1
 csi_stby_mode = 0
@@ -610,7 +623,7 @@ tvin_channel_num = 4
 
 [sata_para]
 sata_used = 1
-sata_power_en = port:PB08<1><default><default><0>
+sata_power_en =
 
 [mmc0_para]
 sdc_used = 1
@@ -715,10 +728,10 @@ kp_out7 = port:PH27<4><1><default><default>
 
 [usbc0]
 usb_used = 1
-usb_port_type = 2
-usb_detect_type = 1
-usb_id_gpio = port:PH04<0><1><default><default>
-usb_det_vbus_gpio = port:PH05<0><0><default><default>
+usb_port_type = 0
+usb_detect_type = 0
+usb_id_gpio =
+usb_det_vbus_gpio =
 usb_drv_vbus_gpio = port:PB09<1><0><default><0>
 usb_host_init_state = 0
 
@@ -738,7 +751,7 @@ usb_detect_type = 0
 usb_id_gpio =
 usb_det_vbus_gpio =
 usb_drv_vbus_gpio = port:PH03<1><0><default><0>
-usb_host_init_state = 1
+usb_host_init_state = 0
 
 [usb_feature]
 vendor_id = 6353
@@ -755,8 +768,8 @@ release = 100
 luns = 3
 
 [gsensor_para]
-gsensor_used = 0
-gsensor_name = "bma250"
+gsensor_used = 1
+gsensor_name = "gsenser"
 gsensor_twi_id = 1
 gsensor_twi_addr = 0x18
 gsensor_int1 = port:PH00<6><1><default><default>
@@ -784,7 +797,7 @@ swl_n20_vdd_en = port:PH11<1><default><default><0>
 swl_n20_vcc_en = port:PH12<1><default><default><0>
 
 [usb_wifi_para]
-usb_wifi_used = 0
+usb_wifi_used = 1
 usb_wifi_usbc_num = 2
 
 [3g_para]
@@ -820,7 +833,7 @@ bt_uart_id = 2
 bt_mod_type = 1
 
 [i2s_para]
-i2s_used = 1
+i2s_used = 0
 i2s_channel = 2
 i2s_mclk = port:PB05<2><1><default><default>
 i2s_bclk = port:PB06<2><1><default><default>
@@ -832,7 +845,7 @@ i2s_dout3 =
 i2s_din = port:PB12<2><1><default><default>
 
 [spdif_para]
-spdif_used = 0
+spdif_used = 1
 spdif_mclk =
 spdif_dout = port:PB13<4><1><default><default>
 spdif_din =
@@ -895,7 +908,7 @@ pmu_pwroff_vol = 3300
 pmu_pwron_vol = 2900
 pmu_pekoff_time = 6000
 pmu_pekoff_en = 1
-pmu_peklong_time = 1500
+pmu_peklong_time = 1000
 pmu_pekon_time = 1000
 pmu_pwrok_time = 64
 pmu_pwrnoe_time = 2000
@@ -914,6 +927,21 @@ pmu_batdeten = 1
 key_min = 4
 key_max = 6
 
+[gpio_para]
+gpio_used = 1
+gpio_num = 4
+gpio_pin_1 = port:PH10<1><default><default><0>
+gpio_pin_2 = port:PH20<1><default><default><1>
+gpio_pin_3 = port:PB03<0><default><default><default>
+gpio_pin_4 = port:PH17<0><1><1><default>
+
+[gpio_init]
+pin_1 = port:PH10<1><default><default><0>
+pin_2 = port:PH20<1><default><default><1>
+
+[dynamic]
+MAC = "000000000000"
+
 [dvfs_table]
 max_freq = 1008000000
 min_freq = 60000000
@@ -929,13 +957,8 @@ LV4_volt = 1300
 LV5_freq = 624000000
 LV5_volt = 1250
 
-[leds_para]
-leds_used = 1
-leds_num = 2
-leds_pin_1 = port:PH20<1><default><default><0>
-leds_name_1 = "green:ph20:led1"
-leds_default_1 = 1
-leds_trigger_1 = "mmc0"
-leds_pin_2 = port:PH21<1><default><default><0>
-leds_name_2 = "blue:ph21:led2"
-leds_trigger_2 = "heartbeat"
+[boot_disp]
+output_type = 3
+output_mode = 5
+auto_hpd = 1
+
